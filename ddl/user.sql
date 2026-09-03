@@ -1,5 +1,5 @@
 CREATE TABLE APP_USER (
-  id serial primary key,
+  id bigserial primary key,
   email varchar(100) not null unique,
   password char(64) not null,
   expires_at timestamp not null,

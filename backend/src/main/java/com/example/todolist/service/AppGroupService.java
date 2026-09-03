@@ -1,15 +1,17 @@
 package com.example.todolist.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.example.todolist.dto.GroupRequest;
 import com.example.todolist.dto.GroupResponse;
 import com.example.todolist.entity.AppGroup;
 import com.example.todolist.repository.AppGroupRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

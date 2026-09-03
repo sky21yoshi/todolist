@@ -4,7 +4,7 @@ Spring Boot を使用した TodoList 用の REST API バックエンド
 
 ## 環境要件
 
-- Java 17+
+- Java 25+
 - Maven 3.8+
 - PostgreSQL 12+
 

@@ -40,7 +40,7 @@ class TaskServiceTest {
         task.setId(1L);
         task.setTitle("テストタスク");
         task.setDescription("テスト説明");
-        task.setOrder(0);
+        task.setDisplayOrder(0);
         task.setPriority(1);
         task.setCompleted(false);
         task.setCreatedAt(LocalDateTime.now());
@@ -49,7 +49,7 @@ class TaskServiceTest {
         taskRequest = new TaskRequest();
         taskRequest.setTitle("テストタスク");
         taskRequest.setDescription("テスト説明");
-        taskRequest.setOrder(0);
+        taskRequest.setDisplayOrder(0);
         taskRequest.setPriority(1);
         taskRequest.setCompleted(false);
     }
@@ -127,7 +127,7 @@ class TaskServiceTest {
         // Assert
         assertNotNull(result);
         assertEquals("テストタスク", result.getTitle());
-        assertEquals(0, result.getOrder());
+        assertEquals(0, result.getDisplayOrder());
         assertEquals(1, result.getPriority());
         verify(taskRepository, times(1)).save(any(Task.class));
     }

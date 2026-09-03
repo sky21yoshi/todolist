@@ -1,5 +1,5 @@
 # Build stage
-FROM maven:3.9.4-eclipse-temurin-21 AS builder
+FROM maven:3.9.16-eclipse-temurin-25 AS builder
 
 WORKDIR /app
 
@@ -14,7 +14,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests -q
 
 # Runtime stage
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:25-jre-alpine
 
 WORKDIR /app
 

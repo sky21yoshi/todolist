@@ -1,10 +1,12 @@
 package com.example.todolist.dto;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +18,7 @@ public class TaskRequest {
 
     private String description;
 
-    private Integer order = 0;
+    private Integer displayOrder = 0;
 
     private Integer priority = 0;
 
@@ -24,7 +26,7 @@ public class TaskRequest {
 
     private LocalDateTime dueDate;
 
-    private Long categoryId;
+    private List<Long> categoryIds;
 
-    private Long tagId;
+    private List<Long> tagIds;
 }

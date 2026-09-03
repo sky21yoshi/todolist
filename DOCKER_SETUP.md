@@ -94,7 +94,7 @@ psql -h localhost -U postgres -d todolist
 | イメージ | カスタムビルド |
 | コンテナ名 | `todolist-app` |
 | ポート | 8080 |
-| Java バージョン | 21 |
+| Java バージョン | 25 |
 | ビルド方式 | マルチステージビルド |
 
 ## 環境変数

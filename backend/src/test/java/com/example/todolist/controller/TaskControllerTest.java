@@ -1,27 +1,35 @@
 package com.example.todolist.controller;
 
-import com.example.todolist.dto.TaskRequest;
-import com.example.todolist.dto.TaskResponse;
-import com.example.todolist.service.TaskService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.example.todolist.dto.TaskRequest;
+import com.example.todolist.dto.TaskResponse;
+import com.example.todolist.service.TaskService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(TaskController.class)
 @DisplayName("TaskController テストスイート")
@@ -45,7 +53,7 @@ class TaskControllerTest {
         taskResponse.setId(1L);
         taskResponse.setTitle("テストタスク");
         taskResponse.setDescription("テスト説明");
-        taskResponse.setOrder(0);
+        taskResponse.setDisplayOrder(0);
         taskResponse.setPriority(1);
         taskResponse.setCompleted(false);
         taskResponse.setCreatedAt(LocalDateTime.now());
@@ -54,7 +62,7 @@ class TaskControllerTest {
         taskRequest = new TaskRequest();
         taskRequest.setTitle("テストタスク");
         taskRequest.setDescription("テスト説明");
-        taskRequest.setOrder(0);
+        taskRequest.setDisplayOrder(0);
         taskRequest.setPriority(1);
         taskRequest.setCompleted(false);
     }

@@ -3,7 +3,10 @@ C:\Users\sky21\GitHub\todolist\backend\src\main\java\com\example\todolist\entity
 C:\Users\sky21\GitHub\todolist\backend\src\main\java\com\example\todolist\entity\TaskEx.java
 C:\Users\sky21\GitHub\todolist\backend\src\main\java\com\example\todolist\repository\AppUserRepository.java
 C:\Users\sky21\GitHub\todolist\backend\src\main\java\com\example\todolist\repository\TaskRepository.java
+C:\Users\sky21\GitHub\todolist\backend\src\main\java\com\example\todolist\controller\AuthController.java
+C:\Users\sky21\GitHub\todolist\backend\src\main\java\com\example\todolist\dto\LoginRequest.java
 C:\Users\sky21\GitHub\todolist\backend\src\main\java\com\example\todolist\dto\UserRequest.java
+C:\Users\sky21\GitHub\todolist\backend\src\main\java\com\example\todolist\exception\LoginRequiredException.java
 C:\Users\sky21\GitHub\todolist\backend\src\main\java\com\example\todolist\entity\Category.java
 C:\Users\sky21\GitHub\todolist\backend\src\main\java\com\example\todolist\dto\GroupRequest.java
 C:\Users\sky21\GitHub\todolist\backend\src\main\java\com\example\todolist\dto\TaskRequest.java
@@ -27,6 +30,7 @@ C:\Users\sky21\GitHub\todolist\backend\src\main\java\com\example\todolist\servic
 C:\Users\sky21\GitHub\todolist\backend\src\main\java\com\example\todolist\dto\TagRequest.java
 C:\Users\sky21\GitHub\todolist\backend\src\main\java\com\example\todolist\TodolistApplication.java
 C:\Users\sky21\GitHub\todolist\backend\src\main\java\com\example\todolist\entity\Tag.java
+C:\Users\sky21\GitHub\todolist\backend\src\main\java\com\example\todolist\exception\ApiExceptionHandler.java
 C:\Users\sky21\GitHub\todolist\backend\src\main\java\com\example\todolist\service\AppGroupService.java
 C:\Users\sky21\GitHub\todolist\backend\src\main\java\com\example\todolist\service\AppUserService.java
 C:\Users\sky21\GitHub\todolist\backend\src\main\java\com\example\todolist\controller\TagController.java

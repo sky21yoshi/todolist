@@ -38,11 +38,11 @@ docker-compose up -d
 
 ### 2. アプリケーションへのアクセス
 
-**API ベースURL**: `http://localhost:8080`
+**API ベースURL**: `http://localhost:8081`
 
 **ヘルスチェック:**
 ```bash
-curl http://localhost:8080/api/v1/tasks
+curl http://localhost:8081/api/v1/tasks
 ```
 
 ### 3. ログ確認
@@ -76,7 +76,7 @@ docker-compose down -v
 | イメージ | `postgres:15-alpine` |
 | コンテナ名 | `todolist-db` |
 | ホスト | localhost |
-| ポート | 5432 |
+| ポート | 5433（ホスト） / 5432（コンテナ） |
 | データベース | todolist |
 | ユーザー | postgres |
 | パスワード | postgres |
@@ -93,7 +93,7 @@ psql -h localhost -U postgres -d todolist
 |------|-----|
 | イメージ | カスタムビルド |
 | コンテナ名 | `todolist-app` |
-| ポート | 8080 |
+| ポート | 8081（ホスト） / 8080（コンテナ） |
 | Java バージョン | 25 |
 | ビルド方式 | マルチステージビルド |
 
@@ -124,7 +124,7 @@ psql -h localhost -U postgres -d todolist
 - **ネットワーク名**: `todolist-network` (bridge)
 - **コンテナ間通信**: 
   - `app` → `postgres` (ホスト名: `postgres`)
-  - 外部アクセス: `localhost:8080`, `localhost:5432`
+  - 外部アクセス: `localhost:8081`, `localhost:5433`
 
 ## ヘルスチェック
 

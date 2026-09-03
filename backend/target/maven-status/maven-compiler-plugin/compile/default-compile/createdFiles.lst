@@ -1,15 +1,19 @@
 com\example\todolist\controller\TagController.class
 com\example\todolist\dto\UserResponse.class
 com\example\todolist\entity\AppGroup.class
+com\example\todolist\controller\AuthController.class
 com\example\todolist\controller\CategoryController.class
 com\example\todolist\dto\TagResponse.class
 com\example\todolist\controller\TaskController.class
 com\example\todolist\dto\CategoryResponse.class
 com\example\todolist\service\TaskService.class
 com\example\todolist\dto\TaskResponse.class
+com\example\todolist\exception\LoginRequiredException.class
 com\example\todolist\controller\AppGroupController.class
 com\example\todolist\dto\CategoryRequest.class
 com\example\todolist\service\AppUserService.class
+com\example\todolist\exception\ApiExceptionHandler.class
+com\example\todolist\dto\LoginRequest.class
 com\example\todolist\repository\TagRepository.class
 com\example\todolist\dto\TaskRequest.class
 com\example\todolist\service\CategoryService.class
@@ -21,6 +25,7 @@ com\example\todolist\service\AppGroupService.class
 com\example\todolist\entity\AppUser.class
 com\example\todolist\dto\UserRequest.class
 com\example\todolist\repository\AppUserRepository.class
+com\example\todolist\exception\ApiExceptionHandler$ErrorResponse.class
 com\example\todolist\entity\Category.class
 com\example\todolist\repository\TaskRepository.class
 com\example\todolist\repository\AppGroupRepository.class

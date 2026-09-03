@@ -8,7 +8,7 @@
 **サービス定義:**
 - **postgres** - PostgreSQL 15 (Alpine)
   - イメージ: `postgres:15-alpine`
-  - ポート: 5432
+  - ポート: 5433（ホスト） / 5432（コンテナ）
   - DB: todolist
   - ユーザー: postgres
   - パスワード: postgres
@@ -17,7 +17,7 @@
 
 - **app** - Spring Boot アプリケーション
   - イメージ: マルチステージビルド（Maven + Temurin JRE 21）
-  - ポート: 8080
+  - ポート: 8081（ホスト） / 8080（コンテナ）
   - 依存関係: postgres（ヘルスチェック完了後に起動）
   - ネットワーク: `todolist-network` (bridge)
 
@@ -68,12 +68,12 @@ docker-compose up -d --build
 
 **ヘルスチェック:**
 ```bash
-curl http://localhost:8080/api/v1/tasks
+curl http://localhost:8081/api/v1/tasks
 ```
 
 **タスク作成:**
 ```bash
-curl -X POST http://localhost:8080/api/v1/tasks \
+curl -X POST http://localhost:8081/api/v1/tasks \
   -H "Content-Type: application/json" \
   -d '{"title": "テスト", "priority": 1}'
 ```
@@ -113,7 +113,7 @@ docker-compose down -v
 │  └──────────────┘  └──────────────┘ │
 │       ↑                ↑              │
 │       │                │              │
-│    localhost:8080  localhost:5432    │
+│    localhost:8081  localhost:5433    │
 └─────────────────────────────────────┘
 ```
 
@@ -147,7 +147,7 @@ LOGGING_LEVEL_COM_EXAMPLE_TODOLIST: DEBUG
 4. ヘルスチェック実行（10秒間隔、最大5回リトライ）
 5. app コンテナ起動（ヘルスチェック成功後）
 6. Spring Boot アプリケーション起動
-7. ポート 8080 でリッスン開始
+7. コンテナ内ポート 8080 でリッスン開始（ホストは 8081）
 
 **所要時間:** 約 2-5 分（初回ビルド時）
 

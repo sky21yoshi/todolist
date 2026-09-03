@@ -2,9 +2,11 @@ package com.example.todolist.service;
 
 import com.example.todolist.dto.UserRequest;
 import com.example.todolist.dto.UserResponse;
+import com.example.todolist.dto.LoginRequest;
 import com.example.todolist.entity.AppUser;
 import com.example.todolist.entity.AppGroup;
 import com.example.todolist.entity.Task;
+import com.example.todolist.exception.LoginRequiredException;
 import com.example.todolist.repository.AppGroupRepository;
 import com.example.todolist.repository.AppUserRepository;
 import com.example.todolist.repository.TaskRepository;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,6 +36,20 @@ public class AppUserService {
     @Transactional(readOnly = true)
     public UserResponse getUserById(Long id) {
         return convertToResponse(findUser(id));
+    }
+
+    @Transactional(readOnly = true)
+    public UserResponse login(LoginRequest request) {
+        AppUser user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(LoginRequiredException::new);
+
+        if (!request.getPassword().equals(user.getPassword())
+                || user.getExpiresAt() == null
+                || !user.getExpiresAt().isAfter(LocalDateTime.now())) {
+            throw new LoginRequiredException();
+        }
+
+        return convertToResponse(user);
     }
 
     @Transactional

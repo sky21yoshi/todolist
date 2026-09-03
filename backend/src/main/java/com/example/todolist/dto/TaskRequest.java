@@ -1,11 +1,12 @@
 package com.example.todolist.dto;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @NoArgsConstructor

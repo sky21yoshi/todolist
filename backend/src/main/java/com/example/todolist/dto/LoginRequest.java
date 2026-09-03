@@ -1,7 +1,7 @@
 package com.example.todolist.dto;
 
-import java.time.LocalDateTime;
-
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,11 +9,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponse {
+public class LoginRequest {
 
-    private Long id;
+    @NotBlank
+    @Email
     private String email;
-    private LocalDateTime expiresAt;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+
+    @NotBlank
+    private String password;
 }

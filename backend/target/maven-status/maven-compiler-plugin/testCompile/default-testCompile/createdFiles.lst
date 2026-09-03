@@ -1,0 +1,6 @@
+com\example\todolist\service\CategoryServiceTest.class
+com\example\todolist\controller\TaskControllerTest.class
+com\example\todolist\service\TagServiceTest.class
+com\example\todolist\service\TaskServiceTest.class
+com\example\todolist\controller\CategoryControllerTest.class
+com\example\todolist\controller\TagControllerTest.class

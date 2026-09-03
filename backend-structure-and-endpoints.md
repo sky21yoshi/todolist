@@ -1,7 +1,7 @@
 # TodoList REST API - バックエンド構造とエンドポイント
 
 ## プロジェクト概要
-- **言語**: Java 17
+- **言語**: Java 25
 - **フレームワーク**: Spring Boot 3.1.5
 - **ビルドツール**: Maven
 - **データベース**: PostgreSQL

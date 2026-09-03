@@ -1,5 +1,5 @@
 CREATE TABLE TASK(
-  id serial primary key,
+  id bigserial primary key,
   title varchar(255) not null,
   description text,
   display_order integer not null default 0,

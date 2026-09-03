@@ -23,14 +23,30 @@ public class Task {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "order", nullable = false)
-    private Integer order = 0;
+    @Column(name = "display_order", nullable = false)
+    private Integer displayOrder = 0;
 
     @Column(name = "priority", nullable = false)
     private Integer priority = 0;
 
     @Column(name = "completed", nullable = false)
     private Boolean completed = false;
+
+        @ManyToMany
+        @JoinTable(
+            name = "TASK_CATEGORY",
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+        )
+        private java.util.Set<Category> categories = new java.util.HashSet<>();
+
+        @ManyToMany
+        @JoinTable(
+            name = "TASK_TAG",
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+        )
+        private java.util.Set<Tag> tags = new java.util.HashSet<>();
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

@@ -2,12 +2,8 @@ package com.example.todolist.service;
 
 import com.example.todolist.dto.TaskRequest;
 import com.example.todolist.dto.TaskResponse;
-import com.example.todolist.entity.Category;
-import com.example.todolist.entity.Tag;
 import com.example.todolist.entity.Task;
 import com.example.todolist.entity.TaskEx;
-import com.example.todolist.repository.CategoryRepository;
-import com.example.todolist.repository.TagRepository;
 import com.example.todolist.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,9 +17,6 @@ import java.util.stream.Collectors;
 public class TaskService {
 
     private final TaskRepository taskRepository;
-    private final CategoryRepository categoryRepository;
-    private final TagRepository tagRepository;
-
     @Transactional(readOnly = true)
     public List<TaskResponse> getAllTasks() {
         return taskRepository.findAll().stream()
@@ -50,29 +43,17 @@ public class TaskService {
         Task task = new Task();
         task.setTitle(request.getTitle());
         task.setDescription(request.getDescription());
-        task.setOrder(request.getOrder() != null ? request.getOrder() : 0);
+        task.setDisplayOrder(request.getDisplayOrder() != null ? request.getDisplayOrder() : 0);
         task.setPriority(request.getPriority() != null ? request.getPriority() : 0);
         task.setCompleted(request.getCompleted() != null ? request.getCompleted() : false);
 
         Task savedTask = taskRepository.save(task);
 
-        // Create TaskEx if extended properties are provided
-        if (request.getDueDate() != null || request.getCategoryId() != null || request.getTagId() != null) {
+        // Create TaskEx when extended properties are provided
+        if (request.getDueDate() != null) {
             TaskEx taskEx = new TaskEx();
             taskEx.setTask(savedTask);
             taskEx.setDueDate(request.getDueDate());
-
-            if (request.getCategoryId() != null) {
-                Category category = categoryRepository.findById(request.getCategoryId())
-                        .orElseThrow(() -> new IllegalArgumentException("Category not found with id: " + request.getCategoryId()));
-                taskEx.setCategory(category);
-            }
-
-            if (request.getTagId() != null) {
-                Tag tag = tagRepository.findById(request.getTagId())
-                        .orElseThrow(() -> new IllegalArgumentException("Tag not found with id: " + request.getTagId()));
-                taskEx.setTag(tag);
-            }
         }
 
         return convertToResponse(savedTask);
@@ -85,7 +66,7 @@ public class TaskService {
 
         task.setTitle(request.getTitle());
         task.setDescription(request.getDescription());
-        task.setOrder(request.getOrder() != null ? request.getOrder() : task.getOrder());
+        task.setDisplayOrder(request.getDisplayOrder() != null ? request.getDisplayOrder() : task.getDisplayOrder());
         task.setPriority(request.getPriority() != null ? request.getPriority() : task.getPriority());
         task.setCompleted(request.getCompleted() != null ? request.getCompleted() : task.getCompleted());
 
@@ -106,9 +87,11 @@ public class TaskService {
         response.setId(task.getId());
         response.setTitle(task.getTitle());
         response.setDescription(task.getDescription());
-        response.setOrder(task.getOrder());
+        response.setDisplayOrder(task.getDisplayOrder());
         response.setPriority(task.getPriority());
         response.setCompleted(task.getCompleted());
+        response.setCategoryIds(task.getCategories().stream().map(category -> category.getId()).collect(Collectors.toSet()));
+        response.setTagIds(task.getTags().stream().map(tag -> tag.getId()).collect(Collectors.toSet()));
         response.setCreatedAt(task.getCreatedAt());
         response.setUpdatedAt(task.getUpdatedAt());
         return response;

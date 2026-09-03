@@ -53,7 +53,7 @@ class TaskControllerTest {
         taskResponse.setId(1L);
         taskResponse.setTitle("テストタスク");
         taskResponse.setDescription("テスト説明");
-        taskResponse.setOrder(0);
+        taskResponse.setDisplayOrder(0);
         taskResponse.setPriority(1);
         taskResponse.setCompleted(false);
         taskResponse.setCreatedAt(LocalDateTime.now());
@@ -62,7 +62,7 @@ class TaskControllerTest {
         taskRequest = new TaskRequest();
         taskRequest.setTitle("テストタスク");
         taskRequest.setDescription("テスト説明");
-        taskRequest.setOrder(0);
+        taskRequest.setDisplayOrder(0);
         taskRequest.setPriority(1);
         taskRequest.setCompleted(false);
     }

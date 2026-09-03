@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +17,7 @@ public class TaskResponse {
 
     private String description;
 
-    private Integer order;
+    private Integer displayOrder;
 
     private Integer priority;
 
@@ -24,13 +25,9 @@ public class TaskResponse {
 
     private LocalDateTime dueDate;
 
-    private Long categoryId;
+    private Set<Long> categoryIds;
 
-    private String categoryName;
-
-    private Long tagId;
-
-    private String tagName;
+    private Set<Long> tagIds;
 
     private LocalDateTime createdAt;
 

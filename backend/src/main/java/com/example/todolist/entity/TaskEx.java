@@ -30,6 +30,8 @@ public class TaskEx {
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     @JoinColumn(name = "task_id")
+    @lombok.ToString.Exclude
+    @lombok.EqualsAndHashCode.Exclude
     private Task task;
 
     @Column(name = "due_date")

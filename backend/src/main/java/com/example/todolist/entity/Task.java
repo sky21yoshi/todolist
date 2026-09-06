@@ -50,6 +50,15 @@ public class Task {
             inverseJoinColumns = @JoinColumn(name = "category_id")
         )
         private java.util.Set<Category> categories = new java.util.HashSet<>();
+    @ManyToMany
+    @JoinTable(
+        name = "TASK_CATEGORY",
+        joinColumns = @JoinColumn(name = "task_id"),
+        inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    @lombok.ToString.Exclude
+    @lombok.EqualsAndHashCode.Exclude
+    private java.util.Set<Category> categories = new java.util.HashSet<>();
 
         @ManyToMany
         @JoinTable(
@@ -58,6 +67,32 @@ public class Task {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
         )
         private java.util.Set<Tag> tags = new java.util.HashSet<>();
+    @ManyToMany
+    @JoinTable(
+        name = "TASK_TAG",
+        joinColumns = @JoinColumn(name = "task_id"),
+        inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    @lombok.ToString.Exclude
+    @lombok.EqualsAndHashCode.Exclude
+    private java.util.Set<Tag> tags = new java.util.HashSet<>();
+
+    @jakarta.persistence.OneToOne(mappedBy = "task", cascade = jakarta.persistence.CascadeType.ALL, orphanRemoval = true, fetch = jakarta.persistence.FetchType.LAZY)
+    @lombok.ToString.Exclude
+    @lombok.EqualsAndHashCode.Exclude
+    private TaskEx taskEx;
+
+    @ManyToMany(mappedBy = "tasks")
+    @lombok.ToString.Exclude
+    @lombok.EqualsAndHashCode.Exclude
+    private java.util.Set<AppUser> users = new java.util.HashSet<>();
+
+    public void setTaskEx(TaskEx taskEx) {
+        this.taskEx = taskEx;
+        if (taskEx != null) {
+            taskEx.setTask(this);
+        }
+    }
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

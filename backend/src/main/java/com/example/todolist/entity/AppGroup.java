@@ -27,6 +27,8 @@ public class AppGroup {
     private String description;
 
     @ManyToMany(mappedBy = "groups")
+    @lombok.ToString.Exclude
+    @lombok.EqualsAndHashCode.Exclude
     private Set<AppUser> users = new HashSet<>();
 
     @Column(name = "created_at", nullable = false, updatable = false)

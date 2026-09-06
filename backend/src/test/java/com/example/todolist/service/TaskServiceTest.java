@@ -3,6 +3,8 @@ package com.example.todolist.service;
 import com.example.todolist.dto.TaskRequest;
 import com.example.todolist.dto.TaskResponse;
 import com.example.todolist.entity.Task;
+import com.example.todolist.repository.CategoryRepository;
+import com.example.todolist.repository.TagRepository;
 import com.example.todolist.repository.TaskRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,6 +29,12 @@ class TaskServiceTest {
 
     @Mock
     private TaskRepository taskRepository;
+
+    @Mock
+    private CategoryRepository categoryRepository;
+
+    @Mock
+    private TagRepository tagRepository;
 
     @InjectMocks
     private TaskService taskService;
@@ -186,5 +194,45 @@ class TaskServiceTest {
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> taskService.deleteTask(999L));
         verify(taskRepository, times(1)).existsById(999L);
+    }
+
+    @Test
+    @DisplayName("タスク作成（拡張情報付き） - 正常系")
+    void testCreateTask_WithExtendedProperties() {
+        // Arrange
+        LocalDateTime dueDate = LocalDateTime.of(2026, 9, 10, 12, 0);
+        taskRequest.setDueDate(dueDate);
+        taskRequest.setCategoryIds(List.of(10L));
+        taskRequest.setTagIds(List.of(20L));
+
+        com.example.todolist.entity.Category cat = new com.example.todolist.entity.Category();
+        cat.setId(10L);
+        cat.setName("仕事");
+
+        com.example.todolist.entity.Tag tg = new com.example.todolist.entity.Tag();
+        tg.setId(20L);
+        tg.setName("緊急");
+
+        when(categoryRepository.findAllById(List.of(10L))).thenReturn(List.of(cat));
+        when(tagRepository.findAllById(List.of(20L))).thenReturn(List.of(tg));
+        when(taskRepository.save(any(Task.class))).thenAnswer(invocation -> {
+            Task saved = invocation.getArgument(0);
+            saved.setId(1L);
+            saved.setCreatedAt(LocalDateTime.now());
+            saved.setUpdatedAt(LocalDateTime.now());
+            return saved;
+        });
+
+        // Act
+        TaskResponse result = taskService.createTask(taskRequest);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(dueDate, result.getDueDate());
+        assertTrue(result.getCategoryIds().contains(10L));
+        assertTrue(result.getTagIds().contains(20L));
+        verify(categoryRepository, times(1)).findAllById(List.of(10L));
+        verify(tagRepository, times(1)).findAllById(List.of(20L));
+        verify(taskRepository, times(1)).save(any(Task.class));
     }
 }

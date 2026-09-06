@@ -35,6 +35,8 @@ public class AppUser {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "group_id")
     )
+    @lombok.ToString.Exclude
+    @lombok.EqualsAndHashCode.Exclude
     private Set<AppGroup> groups = new HashSet<>();
 
     @ManyToMany
@@ -43,6 +45,8 @@ public class AppUser {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "task_id")
     )
+    @lombok.ToString.Exclude
+    @lombok.EqualsAndHashCode.Exclude
     private Set<Task> tasks = new HashSet<>();
 
     @Column(name = "created_at", nullable = false, updatable = false)

@@ -17,11 +17,16 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false, length = 100)
+    @Column(name = "name", nullable = false, unique = true, length = 100)
     private String name;
 
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
+
+    @ManyToMany(mappedBy = "categories")
+    @lombok.ToString.Exclude
+    @lombok.EqualsAndHashCode.Exclude
+    private java.util.Set<Task> tasks = new java.util.HashSet<>();
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

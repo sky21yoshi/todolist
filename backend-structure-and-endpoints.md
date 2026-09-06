@@ -83,7 +83,7 @@ todolist/
 ### Task（タスク基本情報）
 | カラム | 型 | 説明 |
 |--------|------|------|
-| id | SERIAL (PK) | タスク一意識別子 |
+| id | BIGSERIAL (PK) | タスク一意識別子 |
 | title | VARCHAR(255) NOT NULL | タスク名 |
 | description | TEXT | タスク説明 |
 | display_order | INTEGER | 表示順序 |
@@ -95,7 +95,7 @@ todolist/
 ### TaskEx（タスク拡張情報）
 | カラム | 型 | 説明 |
 |--------|------|------|
-| task_id | INTEGER (FK, PK) | タスクID（Task テーブルへの外部キー） |
+| task_id | BIGINT (FK, PK) | タスクID（Task テーブルへの外部キー） |
 | due_date | TIMESTAMP | 期限日時 |
 | created_at | TIMESTAMP | 作成日時 |
 | updated_at | TIMESTAMP | 更新日時 |
@@ -103,8 +103,8 @@ todolist/
 ### Category（カテゴリ）
 | カラム | 型 | 説明 |
 |--------|------|------|
-| id | SERIAL (PK) | カテゴリ一意識別子 |
-| name | VARCHAR(100) NOT NULL | カテゴリ名 |
+| id | BIGSERIAL (PK) | カテゴリ一意識別子 |
+| name | VARCHAR(100) NOT NULL UNIQUE | カテゴリ名 |
 | description | TEXT | カテゴリ説明 |
 | created_at | TIMESTAMP | 作成日時 |
 | updated_at | TIMESTAMP | 更新日時 |
@@ -112,8 +112,8 @@ todolist/
 ### Tag（タグ）
 | カラム | 型 | 説明 |
 |--------|------|------|
-| id | SERIAL (PK) | タグ一意識別子 |
-| name | VARCHAR(100) NOT NULL | タグ名 |
+| id | BIGSERIAL (PK) | タグ一意識別子 |
+| name | VARCHAR(100) NOT NULL UNIQUE | タグ名 |
 | description | TEXT | タグ説明 |
 | created_at | TIMESTAMP | 作成日時 |
 | updated_at | TIMESTAMP | 更新日時 |
@@ -123,7 +123,7 @@ todolist/
 ```mermaid
 erDiagram
   TASK {
-    int id PK
+    bigint id PK
     varchar title
     text description
     int display_order
@@ -134,14 +134,14 @@ erDiagram
   }
 
   TASK_EX {
-    int task_id PK, FK
+    bigint task_id PK, FK
     timestamp due_date
     timestamp created_at
     timestamp updated_at
   }
 
   CATEGORY {
-    int id PK
+    bigint id PK
     varchar name UK
     text description
     timestamp created_at
@@ -149,7 +149,7 @@ erDiagram
   }
 
   TAG {
-    int id PK
+    bigint id PK
     varchar name UK
     text description
     timestamp created_at
@@ -157,7 +157,7 @@ erDiagram
   }
 
   APP_USER {
-    int id PK
+    bigint id PK
     varchar email UK
     char password
     timestamp expires_at
@@ -166,7 +166,7 @@ erDiagram
   }
 
   APP_GROUP {
-    int id PK
+    bigint id PK
     varchar name UK
     text description
     timestamp created_at
@@ -174,29 +174,29 @@ erDiagram
   }
 
   TASK_CATEGORY {
-    int task_id PK, FK
-    int category_id PK, FK
+    bigint task_id PK, FK
+    bigint category_id PK, FK
     timestamp created_at
     timestamp updated_at
   }
 
   TASK_TAG {
-    int task_id PK, FK
-    int tag_id PK, FK
+    bigint task_id PK, FK
+    bigint tag_id PK, FK
     timestamp created_at
     timestamp updated_at
   }
 
   TASK_USER {
-    int task_id PK, FK
-    int user_id PK, FK
+    bigint task_id PK, FK
+    bigint user_id PK, FK
     timestamp created_at
     timestamp updated_at
   }
 
   USER_GROUP {
-    int user_id PK, FK
-    int group_id PK, FK
+    bigint user_id PK, FK
+    bigint group_id PK, FK
     timestamp created_at
     timestamp updated_at
   }
